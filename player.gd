@@ -1,7 +1,7 @@
 extends CharacterBody2D
 ## all export var
 ## paltformer movement
-
+@onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @export var speed :int = 9000
 @export var friction :int = 20
 @export var max_jump :int = 1
@@ -16,7 +16,8 @@ func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("move_left","move_right")
 	if direction:
 		velocity.x = direction * speed *delta
-		#add animation
+		animation.play("run")
+		animation.flip_h = direction <0
 		#add filp animation
 	else:
 		velocity.x = velocity.move_toward(Vector2.ZERO,friction).x
@@ -53,3 +54,7 @@ func wall_jump():
 			velocity.y += (wall_slide_gravity * get_physics_process_delta_time())
 			##capping gravity power
 			velocity.y = min(velocity.y , wall_slide_gravity)
+			
+func dash():
+	pass
+	
