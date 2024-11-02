@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://v72diaseq43w"]
+[gd_scene load_steps=5 format=3 uid="uid://v72diaseq43w"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_x3g60"]
 [ext_resource type="Texture2D" uid="uid://bsuebn4eyo7d5" path="res://icon.svg" id="2_ld7rn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kiltk"]
+size = Vector2(32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ovo55"]
 animations = [{
@@ -17,9 +20,12 @@ animations = [{
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_x3g60")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_kiltk")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0.65098, 0.713726, 1, 1)
 position = Vector2(0, -16)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_ovo55")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
