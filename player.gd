@@ -1,7 +1,10 @@
 extends CharacterBody2D
 ## all export var
 ## paltformer movement
+@onready var dash_timer: Timer = $dash_timer
+@onready var dash_cooldown: Timer = $dash_cooldown
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
+
 @export var speed :int = 9000
 @export var friction :int = 20
 @export var max_jump :int = 1
@@ -10,15 +13,27 @@ extends CharacterBody2D
 @export var wall_slide_gravity = 80
 var current_jump:int = 0
 var is_wall_sliding = false
-
+var dashing = false
+var can_dash = true
+@export var dash_power = 18000
 
 func _physics_process(delta: float) -> void:
+	
+	if Input.is_action_just_pressed("dashing"):
+		dashing = true
+		can_dash = false
+		dash_timer.start()
+		dash_cooldown.start()
+	
 	var direction = Input.get_axis("move_left","move_right")
 	if direction:
-		velocity.x = direction * speed *delta
-		animation.play("run")
-		animation.flip_h = direction <0
-		#add filp animation
+		if dashing:
+			velocity.x = direction * dash_power * delta
+		else :
+			velocity.x = direction * speed * delta
+			animation.play("run")
+			animation.flip_h = direction <0
+			#add filp animation
 	else:
 		velocity.x = velocity.move_toward(Vector2.ZERO,friction).x
 		animation.play('idle')
@@ -56,6 +71,13 @@ func wall_jump():
 			##capping gravity power
 			velocity.y = min(velocity.y , wall_slide_gravity)
 			
-func dash():
-	pass
+
 	
+
+
+func _on_dash_timer_timeout() -> void:
+	dashing = false
+
+
+func _on_dash_cooldown_timeout() -> void:
+	can_dash = true
