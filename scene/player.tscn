@@ -17,6 +17,25 @@ size = Vector2(152, 256)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("7_hsk04")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dqnee")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7b37f")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_dqnee")
 }, {
 "duration": 1.0,
@@ -46,6 +65,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_x3g60")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -56,5 +76,4 @@ shape = SubResource("RectangleShape2D_kiltk")
 position = Vector2(0, -136)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_ovo55")
-animation = &"run"
-frame_progress = 0.597989
+animation = &"dash"
