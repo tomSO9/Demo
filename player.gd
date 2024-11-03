@@ -7,19 +7,19 @@ extends CharacterBody2D
 
 @export var speed :int = 9000
 @export var friction :int = 20
-@export var max_jump :int = 1
+@export var max_jump :int = 2
 @export var gravity :int = 100
-@export var jump_power:int = -1000
+@export var jump_power:int = -1500
 @export var wall_slide_gravity = 80
 var current_jump:int = 0
 var is_wall_sliding = false
 var dashing = false
 var can_dash = true
-@export var dash_power = 18000
+@export var dash_power = 54000
 
 func _physics_process(delta: float) -> void:
 	
-	if Input.is_action_just_pressed("dashing"):
+	if Input.is_action_just_pressed("dashing") and can_dash :
 		dashing = true
 		can_dash = false
 		dash_timer.start()
@@ -29,6 +29,7 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		if dashing:
 			velocity.x = direction * dash_power * delta
+			animation.play('dash')
 		else :
 			velocity.x = direction * speed * delta
 			animation.play("run")
