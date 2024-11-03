@@ -21,6 +21,7 @@ func _physics_process(delta: float) -> void:
 		#add filp animation
 	else:
 		velocity.x = velocity.move_toward(Vector2.ZERO,friction).x
+		animation.play('idle')
 		#add animation
 	
 	move_and_slide()
