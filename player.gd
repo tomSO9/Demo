@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var dash_timer: Timer = $dash_timer
 @onready var dash_cooldown: Timer = $dash_cooldown
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
+@onready var cd_bar: ProgressBar = $skill_ui/cd_bar
+@onready var cd_icon: TextureRect = $skill_ui/cd_icon
+
 
 @export var speed :int = 9000
 @export var friction :int = 20
@@ -16,12 +19,23 @@ var is_wall_sliding = false
 var dashing = false
 var can_dash = true
 @export var dash_power = 54000
+@export var cd_duration = 1
+
+func _ready() -> void:
+	cd_bar.max_value = cd_duration
+	cd_bar.value = cd_duration
+
 
 func _physics_process(delta: float) -> void:
+	
+	if dash_cooldown.is_stopped() ==false:
+		cd_bar.value = cd_duration - dash_cooldown.time_left
 	
 	if Input.is_action_just_pressed("dashing") and can_dash :
 		dashing = true
 		can_dash = false
+		cd_icon.modulate.a = 0.5
+		cd_bar.value = 0
 		dash_timer.start()
 		dash_cooldown.start()
 	
@@ -81,4 +95,6 @@ func _on_dash_timer_timeout() -> void:
 
 
 func _on_dash_cooldown_timeout() -> void:
+	cd_icon.modulate.a = 1 
+	cd_bar.value = cd_duration
 	can_dash = true

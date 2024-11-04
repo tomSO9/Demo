@@ -82,6 +82,34 @@ animation = &"dash"
 wait_time = 0.2
 
 [node name="dash_cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="skill_ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="cd_icon" type="TextureRect" parent="skill_ui"]
+layout_mode = 2
+offset_left = -2048.0
+offset_top = 512.0
+offset_right = -1536.0
+offset_bottom = 1024.0
+texture = ExtResource("3_m1qm1")
+expand_mode = 5
+
+[node name="cd_bar" type="ProgressBar" parent="skill_ui"]
+layout_mode = 0
+offset_left = -96.0
+offset_top = -320.0
+offset_right = 96.0
+offset_bottom = -293.0
+max_value = 1.0
+step = 0.1
+show_percentage = false
 
 [connection signal="timeout" from="dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="dash_cooldown" to="." method="_on_dash_cooldown_timeout"]
