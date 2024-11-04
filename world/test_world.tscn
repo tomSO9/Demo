@@ -10,3 +10,4 @@ layer_0/tile_data = PackedInt32Array(262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 2
 
 [node name="Player" parent="." instance=ExtResource("2_vmpqn")]
 position = Vector2(175, 465)
+speed = 18000
